@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Humrah demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<style>
+:root{--ground:#F6F7F4;--ink:#14231C;--muted:#4A5650;--line:#D5DBD6;--line2:#E6EAE7;--edge:#9AA59F;--green:#0B6B4F;--green-d:#084F3B;--green-l:#E4F1EB;--mint:#DDEFE7;--amber:#F2A900;--amber-l:#FFF1CC;--amber-d:#5C4300;--red:#A3341F}
+*{box-sizing:border-box}
+body{margin:0;background:#E3E7E2;color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4}
+button,input{font-family:inherit}
+button{cursor:pointer}
+h1,.disp{font-family:'Space Grotesk',Inter,sans-serif}
+.wrap{max-width:422px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:100vh}
+.views{display:flex;gap:8px}
+.views button{flex:1 1 0;min-height:44px;border-radius:22px;border:1px solid var(--edge);background:#fff;color:var(--ink);font-weight:700;font-size:13px}
+.views button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.phone{background:var(--ground);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;min-height:760px;box-shadow:0 8px 30px rgba(20,35,28,.18)}
+.bar{display:flex;align-items:center;gap:12px;padding:20px 20px 12px;background:var(--green);color:#fff}
+.bar.dark{background:var(--ink)}
+.bar .t{font-weight:700;font-size:22px}
+.bar .s{font-size:13px;color:var(--mint)}
+.back{width:44px;height:44px;border-radius:22px;border:1px solid #fff;background:transparent;color:#fff;font-size:20px}
+.body{padding:20px;display:flex;flex-direction:column;gap:14px;flex-grow:1}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.rows{padding:4px 16px;gap:0}
+.row{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line2);align-items:center}
+.row:last-child{border-bottom:0}
+.grow{flex-grow:1;min-width:0}
+.muted{color:var(--muted);font-size:14px}
+.small{font-size:13px}
+.b{font-weight:700}.sb{font-weight:600}
+label,.lab{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+input{height:48px;width:100%;border:1px solid var(--edge);border-radius:10px;padding:0 12px;font-size:15px;color:var(--ink);background:#fff}
+.primary{min-height:52px;border:0;border-radius:12px;background:var(--green);color:#fff;font-size:16px;font-weight:700;width:100%}
+.demo{min-height:52px;border:2px dashed var(--amber-d);border-radius:12px;background:var(--amber-l);color:var(--amber-d);font-size:15px;font-weight:700;width:100%}
+.sel{text-align:left;display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:center;border-radius:12px;padding:10px 14px;font-size:15px;border:1px solid var(--edge);background:#fff;color:var(--ink);width:100%}
+.sel[aria-pressed=true]{border:2px solid var(--green);background:var(--green-l);color:var(--green-d)}
+.step{width:44px;height:48px;border-radius:10px;border:1px solid var(--edge);background:#fff;font-size:20px;color:var(--ink)}
+.opt{text-align:left;width:100%;color:var(--ink);font-size:15px}
+.chip{border-radius:8px;padding:4px 8px;font-size:13px;font-weight:600;background:var(--green-l);color:var(--green-d)}
+.chip.bus{background:var(--amber-l);color:var(--amber-d)}
+.between{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.big{font-weight:700;font-size:22px}
+.hero{background:var(--green);color:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.hero .muted{color:var(--mint)}
+.dot{width:14px;height:14px;border-radius:7px;flex-shrink:0;background:#fff;border:2px solid var(--edge)}
+.dot.done{background:var(--green);border-color:var(--green)}
+.dot.now{background:var(--amber);border-color:var(--amber-d)}
+.ghost{flex:1 1 0;min-height:48px;border-radius:12px;border:1px solid var(--green);background:#fff;color:var(--green-d);font-weight:600;font-size:14px}
+.ghost.red{border-color:var(--red);color:var(--red)}
+.note{background:var(--amber-l);color:var(--amber-d);border-radius:10px;padding:10px 12px;font-size:14px;font-weight:600}
+.dash{border:1px dashed var(--edge);border-radius:16px;padding:16px}
+.tabs{display:flex;gap:8px}
+.tabs button{flex:1 1 0;min-height:44px;border-radius:22px;border:1px solid var(--edge);background:#fff;color:var(--ink);font-weight:700;font-size:14px}
+.tabs button[aria-pressed=true]{border:2px solid var(--green);background:var(--green-l);color:var(--green-d)}
+.star{width:48px;height:48px;border-radius:24px;font-size:16px;font-weight:700;border:1px solid var(--edge);background:#fff;color:var(--ink)}
+.star[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
+.foot{font-size:13px;color:var(--muted);text-align:center;padding-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="views" id="views"></div>
+<div class="phone" id="app"></div>
+<div class="foot">Clickable demo. Fares, names and plates are illustrative. No real bookings or payments.</div>
+</div>
+<script>
+var view = 'pax';
+var P = { screen: 'home', pax: 2, opt: 'bal', pay: 'cash', step: 0, women: false, shared: false, help: false, rating: 0, from: 'Johar Town, Lahore', to: 'G-11, Islamabad' };
+var D = { tab: 'jobs', online: true, job: 0, up: {} };
+var O = { a: 8, b: 10, c: 6 };
+var FEE = 75;
+var OPTS = [
+{ id: 'low', name: 'Lowest fare', r1: 'Rickshaw', r1p: 320, cls: 'Standard AC', busP: 2160, dep: '7:30 am', arr: '12:00 pm', r2: 'Rickshaw', r2p: 300, leave: '6:40 am', tArr: '7:10 am', r2dep: '12:10 pm', arrive: '12:35 pm', dur: '5 h 55 min' },
+{ id: 'bal', name: 'Best balance', r1: 'Rickshaw', r1p: 320, cls: 'Business class', busP: 2670, dep: '8:00 am', arr: '12:15 pm', r2: 'Car', r2p: 650, leave: '7:10 am', tArr: '7:40 am', r2dep: '12:25 pm', arrive: '12:45 pm', dur: '5 h 35 min' },
+{ id: 'comf', name: 'Most comfortable', r1: 'Car', r1p: 700, cls: 'Luxury', busP: 3400, dep: '9:00 am', arr: '1:15 pm', r2: 'Car', r2p: 650, leave: '8:15 am', tArr: '8:40 am', r2dep: '1:25 pm', arrive: '1:45 pm', dur: '5 h 30 min' }
+];
+var DEPS = [['a', '7:30 am', 'Standard AC', 2160, 45, 31, 5], ['b', '8:00 am', 'Business class', 2670, 40, 22, 7], ['c', '9:00 am', 'Luxury', 3400, 30, 19, 2]];
+var DOCS = [['cnic', 'CNIC identity check', true], ['lic', 'Driving licence', true], ['reg', 'Vehicle registration', true], ['fit', 'Fitness certificate', false], ['train', 'Safety training video', false]];
+
+function rs(n) { return 'Rs ' + n.toLocaleString('en-US'); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function total(o) { return o.r1p + o.busP * P.pax + o.r2p + FEE; }
+function cur() { return OPTS.filter(function (x) { return x.id === P.opt; })[0]; }
+function paxLine() { return P.pax === 1 ? '1 passenger' : P.pax + ' passengers'; }
+function legs(o) {
+  var seats = P.pax === 1 ? '1 seat' : P.pax + ' seats';
+  return [
+    { time: o.leave, title: o.r1 + ' from your door', sub: 'Reaches the Lahore terminal by ' + o.tArr + ', 20 minutes before departure', price: rs(o.r1p) },
+    { time: o.dep, title: 'Bus, ' + o.cls, sub: 'Partner operator, ' + seats + (P.women ? ', beside women or family' : '') + '. Arrives Faizabad ' + o.arr, price: rs(o.busP * P.pax) },
+    { time: o.r2dep, title: o.r2 + ' to your door', sub: 'Driver waits at the arrival bay. At ' + esc(P.to) + ' by ' + o.arrive, price: rs(o.r2p) }
+  ];
+}
+function bar(title, sub, back, dark) {
+  return '<div class="bar' + (dark ? ' dark' : '') + '">' + (back ? '<button class="back" aria-label="Back" data-a="back">&lsaquo;</button>' : '') +
+    '<div><div class="t disp">' + title + '</div><div class="s">' + sub + '</div></div></div>';
+}
+
+function passenger() {
+  var o = cur(), h = '', s = P.screen;
+  var subs = { home: 'Plan a trip', results: 'Choose an option', detail: 'Trip details', pay: 'Payment', live: 'Your trip', done: 'Trip complete' };
+  h += bar('Humrah', subs[s], s === 'results' || s === 'detail' || s === 'pay') + '<div class="body">';
+  if (s === 'home') {
+    h += '<h1 style="margin:0;font-size:26px;line-height:1.2">Door to door, one booking</h1>' +
+      '<p class="muted" style="margin:0;font-size:15px">Ride to the terminal, intercity bus, and a ride to your door at the other end.</p>' +
+      '<div class="card"><div><label for="from">From</label><input id="from" value="' + esc(P.from) + '"></div>' +
+      '<div><label for="to">To</label><input id="to" value="' + esc(P.to) + '"></div>' +
+      '<div style="display:flex;gap:12px"><div class="grow"><label for="when">When</label><input id="when" value="Tomorrow, morning" readonly></div>' +
+      '<div><div class="lab">Passengers</div><div style="display:flex;align-items:center;gap:8px"><button class="step" aria-label="Fewer passengers" data-a="pax-">&minus;</button><div class="b" style="min-width:20px;text-align:center;font-size:17px">' + P.pax + '</div><button class="step" aria-label="More passengers" data-a="pax+">+</button></div></div></div>' +
+      '<button class="sel" aria-pressed="' + P.women + '" data-a="women"><span class="sb">Seat beside women or family only</span><span class="small">' + (P.women ? 'On: we only offer buses that can seat you this way' : 'Off: tap to turn on') + '</span></button></div>' +
+      '<button class="primary" data-a="search">Find door-to-door trips</button>' +
+      '<div class="dash"><div class="b">Daily office or campus route</div><div class="muted">Fixed-route shared vans, offered through employers and universities. Planned for a later phase.</div></div>';
+  }
+  if (s === 'results') {
+    h += '<div class="b" style="font-size:17px">' + esc(P.from) + ' to ' + esc(P.to) + '</div><div class="muted">' + paxLine() + '. Prices include every leg and the connection guarantee.</div>';
+    OPTS.forEach(function (x) {
+      h += '<button class="card opt" data-a="opt" data-v="' + x.id + '"><div class="between"><span class="b" style="font-size:16px">' + x.name + '</span><span class="disp b" style="font-size:20px">' + rs(total(x)) + '</span></div>' +
+        '<div class="muted">Leave ' + x.leave + ', arrive ' + x.arrive + ' (' + x.dur + ')</div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="chip">' + x.r1 + '</span><span class="chip bus">Bus, ' + x.cls + '</span><span class="chip">' + x.r2 + '</span></div></button>';
+    });
+  }
+  if (s === 'detail') {
+    h += '<div class="b" style="font-size:18px">' + o.name + '</div><div class="card rows">';
+    legs(o).forEach(function (l) {
+      h += '<div class="row" style="align-items:flex-start"><div class="b small" style="width:64px">' + l.time + '</div><div class="grow"><div class="sb">' + l.title + '</div><div class="muted small">' + l.sub + '</div></div><div class="sb small" style="white-space:nowrap">' + l.price + '</div></div>';
+    });
+    h += '<div class="row" style="align-items:flex-start"><div class="grow"><div class="sb">Connection guarantee</div><div class="muted small">If our ride makes you miss the bus, we rebook you on the next one at no cost.</div></div><div class="sb small">' + rs(FEE) + '</div></div></div>' +
+      '<div class="between"><span class="sb">Total, ' + paxLine() + '</span><span class="disp big">' + rs(total(o)) + '</span></div>' +
+      '<button class="primary" data-a="topay">Book all legs</button>';
+  }
+  if (s === 'pay') {
+    h += '<div class="b" style="font-size:18px">How will you pay?</div>';
+    [['cash', 'Cash', 'Pay each driver and the bus counter as you go'], ['jazz', 'JazzCash', 'Pay once for all legs'], ['easy', 'Easypaisa', 'Pay once for all legs'], ['card', 'Debit or credit card', 'Pay once for all legs']].forEach(function (m) {
+      h += '<button class="sel" aria-pressed="' + (P.pay === m[0]) + '" data-a="pay" data-v="' + m[0] + '"><span class="sb">' + m[1] + '</span><span class="small">' + m[2] + '</span></button>';
+    });
+    h += '<div><label for="phone">Mobile number for trip updates</label><input id="phone" inputmode="tel" placeholder="03XX XXXXXXX"></div>' +
+      '<div class="between"><span class="sb">Total</span><span class="disp big">' + rs(total(o)) + '</span></div>' +
+      '<button class="primary" data-a="confirm">Confirm booking</button>';
+  }
+  if (s === 'live') {
+    var t = [
+      [o.r1 + ' is on the way', 'Imran, plate LEA 4821, reaches you at ' + o.leave],
+      ['Riding to the terminal', 'On time for the ' + o.dep + ' bus'],
+      ['At the terminal', 'Board at bay 4. Show booking HM-4827 at the counter'],
+      ['On the bus to Islamabad', 'Arriving Faizabad at ' + o.arr],
+      [o.r2 + ' is waiting for you', 'Sajid, plate RIK 2290, at the arrival bay']
+    ][P.step];
+    var legOf = [0, 0, 1, 1, 2][P.step];
+    h += '<div class="hero"><div class="muted small">Booking HM-4827</div><div class="disp b" style="font-size:20px">' + t[0] + '</div><div class="muted">' + t[1] + '</div></div><div class="card rows">';
+    legs(o).forEach(function (l, i) {
+      var st = i < legOf ? 'Done' : i === legOf ? 'Now' : 'Next';
+      h += '<div class="row"><div class="dot ' + st.toLowerCase() + '"></div><div class="grow"><div class="sb">' + l.title + '</div><div class="muted small">' + l.time + '</div></div><div class="b small">' + st + '</div></div>';
+    });
+    h += '</div><div style="display:flex;gap:12px"><button class="ghost" aria-pressed="' + P.shared + '" data-a="share">' + (P.shared ? 'Shared with family' : 'Share live trip') + '</button><button class="ghost red" aria-pressed="' + P.help + '" data-a="help">Help and safety</button></div>';
+    if (P.help) h += '<div class="card" style="border-color:var(--red)"><div class="b">We are with you until you arrive</div><div class="muted">Call support, report a problem with a driver, or tell us you may miss a connection. A missed bus caused by our ride is rebooked free.</div><button class="primary" style="background:var(--red);min-height:44px">Call support now</button></div>';
+    h += '<button class="demo" data-a="next">Demo: move trip forward</button>';
+  }
+  if (s === 'done') {
+    h += '<h1 style="margin:0;font-size:26px;line-height:1.2">You have arrived</h1><p class="muted" style="margin:0;font-size:15px">Door to door from ' + esc(P.from) + ' to ' + esc(P.to) + ' on one booking.</p>' +
+      '<div class="card"><div class="sb">How was the whole trip?</div><div style="display:flex;gap:8px">';
+    for (var n = 1; n <= 5; n++) h += '<button class="star" aria-label="Rate ' + n + ' out of 5" aria-pressed="' + (P.rating === n) + '" data-a="rate" data-v="' + n + '">' + n + '</button>';
+    h += '</div><div class="muted small">' + (P.rating ? 'Thanks. Your rating covers both drivers and the bus.' : 'Tap a number from 1 to 5.') + '</div></div><button class="primary" data-a="reset">Plan another trip</button>';
+  }
+  return h + '</div>';
+}
+
+function driver() {
+  var done = D.job === 3, declined = D.job === -1, h = bar('Humrah Partner', 'Rickshaw driver', false, true) + '<div class="body">';
+  h += '<div class="tabs">' + [['jobs', 'Jobs'], ['earn', 'Earnings'], ['docs', 'Papers']].map(function (t) { return '<button aria-pressed="' + (D.tab === t[0]) + '" data-a="tab" data-v="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
+  if (D.tab === 'jobs') {
+    h += '<button class="primary" style="' + (D.online ? '' : 'background:#fff;color:var(--ink);border:1px solid var(--edge)') + '" aria-pressed="' + D.online + '" data-a="online">' + (D.online ? 'You are online. Tap to go offline' : 'You are offline. Tap to go online') + '</button>';
+    if (D.online && !declined) {
+      var notes = ['New request. Accept within 30 seconds.', 'Accepted. Drive to the pickup point.', 'Passengers on board. Drive to the terminal.', 'Dropped at 7:34 am, on time. Rs 320 fare and Rs 75 bonus added.'];
+      var labels = ['Accept job', 'Passengers picked up', 'Dropped at terminal'];
+      h += '<div class="card"><div class="between"><span class="b" style="font-size:16px">' + (done ? 'Job complete' : 'Bus connection pickup') + '</span><span class="disp b" style="font-size:20px">Rs 320</span></div>' +
+        '<div class="muted">Johar Town to Lahore terminal, 2 passengers, 2 bags. Pick up 7:10 am.</div>' +
+        '<div class="note">Bus leaves 8:00 am. Reach the terminal by 7:40 am and earn a Rs 75 on-time bonus.</div><div class="muted">' + notes[D.job] + '</div>';
+      if (!done) h += '<div style="display:flex;gap:12px">' + (D.job === 0 ? '<button class="ghost" style="border-color:var(--edge);color:var(--ink)" data-a="decline">Decline</button>' : '') + '<button class="primary" style="flex:2 1 0;min-height:48px;font-size:15px" data-a="adv">' + labels[D.job] + '</button></div>';
+      h += '</div>';
+    } else {
+      h += '<div class="dash muted">' + (D.online ? 'Job declined. We will send the next request near you.' : 'Go online to receive jobs.') + '</div>';
+    }
+    h += '<div class="card" style="gap:4px"><div class="sb">Next from the terminal</div><div class="muted">3 buses arrive between 12:00 and 1:15 pm. Stay near the arrival bay for booked passengers going home.</div></div>';
+  }
+  if (D.tab === 'earn') {
+    var fares = 1990 + (done ? 320 : 0), bonus = 150 + (done ? 75 : 0);
+    h += '<div class="hero"><div class="muted small">Earned today</div><div class="disp b" style="font-size:30px">' + rs(fares + bonus) + '</div><div class="muted">' + (6 + (done ? 1 : 0)) + ' trips. Paid to your JazzCash tonight at 9 pm.</div></div><div class="card rows">' +
+      [['Fares', rs(fares)], ['On-time connection bonuses', rs(bonus)], ['Commission', 'Rs 0'], ['Cash already collected', rs(1340)]].map(function (e) { return '<div class="row"><div class="grow">' + e[0] + '</div><div class="b">' + e[1] + '</div></div>'; }).join('') +
+      '</div><div class="note">No commission for your first 90 days. 62 days left.</div>';
+  }
+  if (D.tab === 'docs') {
+    h += '<div class="muted">Passengers only see drivers whose papers are checked.</div><div class="card rows">' + DOCS.map(function (d) {
+      var ok = d[2] || D.up[d[0]];
+      return '<div class="row" style="min-height:64px"><div class="grow sb">' + d[1] + '</div>' + (ok ? '<div class="b small" style="color:var(--green-d)">Checked</div>' : '<button class="ghost" style="flex:none;min-height:44px;padding:0 14px" data-a="up" data-v="' + d[0] + '">Upload</button>') + '</div>';
+    }).join('') + '</div>';
+  }
+  return h + '</div>';
+}
+
+function operator() {
+  var h = bar('Humrah Partner', 'Bus operator', false, true) + '<div class="body"><div class="b" style="font-size:18px">Lahore to Islamabad, tomorrow</div><div class="muted">Choose how many seats on each departure Humrah may sell. You pay commission only on seats we sell.</div>';
+  var seats = 0, value = 0;
+  DEPS.forEach(function (d) {
+    var sold = Math.min(d[6], O[d[0]]); seats += sold; value += sold * d[3];
+    h += '<div class="card"><div class="between"><span class="b" style="font-size:16px">' + d[1] + ', ' + d[2] + '</span><span class="sb small">' + rs(d[3]) + ' a seat</span></div>' +
+      '<div class="muted">' + d[5] + ' of ' + d[4] + ' seats sold at your counter. ' + sold + ' sold by Humrah.</div>' +
+      '<div class="between" style="align-items:center"><span class="sb small">Seats open to Humrah</span><span style="display:flex;align-items:center;gap:8px"><button class="step" style="height:44px" aria-label="Fewer seats" data-a="seat-" data-v="' + d[0] + '">&minus;</button><span class="b" style="min-width:24px;text-align:center;font-size:17px">' + O[d[0]] + '</span><button class="step" style="height:44px" aria-label="More seats" data-a="seat+" data-v="' + d[0] + '">+</button></span></div></div>';
+  });
+  var com = Math.round(value * 0.08);
+  h += '<div class="card rows">' + [['Seats sold by Humrah', seats], ['Ticket value', rs(value)], ['Commission at 8%', rs(com)], ['Paid to you tomorrow', rs(value - com)]].map(function (e) { return '<div class="row"><div class="grow">' + e[0] + '</div><div class="b">' + e[1] + '</div></div>'; }).join('') + '</div>';
+  return h + '</div>';
+}
+
+function render() {
+  document.getElementById('views').innerHTML = [['pax', 'Passenger'], ['drv', 'Driver'], ['op', 'Bus operator']].map(function (v) { return '<button aria-pressed="' + (view === v[0]) + '" data-a="view" data-v="' + v[0] + '">' + v[1] + '</button>'; }).join('');
+  document.getElementById('app').innerHTML = view === 'pax' ? passenger() : view === 'drv' ? driver() : operator();
+}
+
+document.addEventListener('input', function (e) {
+  if (e.target.id === 'from') P.from = e.target.value;
+  if (e.target.id === 'to') P.to = e.target.value;
+});
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-a]'); if (!b) return;
+  var a = b.getAttribute('data-a'), v = b.getAttribute('data-v');
+  if (a === 'view') view = v;
+  else if (a === 'back') P.screen = { results: 'home', detail: 'results', pay: 'detail' }[P.screen];
+  else if (a === 'pax-') P.pax = Math.max(1, P.pax - 1);
+  else if (a === 'pax+') P.pax = Math.min(3, P.pax + 1);
+  else if (a === 'women') P.women = !P.women;
+  else if (a === 'search') P.screen = 'results';
+  else if (a === 'opt') { P.opt = v; P.screen = 'detail'; }
+  else if (a === 'topay') P.screen = 'pay';
+  else if (a === 'pay') P.pay = v;
+  else if (a === 'confirm') { P.screen = 'live'; P.step = 0; }
+  else if (a === 'share') P.shared = !P.shared;
+  else if (a === 'help') P.help = !P.help;
+  else if (a === 'next') { if (P.step >= 4) P.screen = 'done'; else P.step++; }
+  else if (a === 'rate') P.rating = +v;
+  else if (a === 'reset') { P.screen = 'home'; P.step = 0; P.rating = 0; P.shared = false; P.help = false; }
+  else if (a === 'tab') D.tab = v;
+  else if (a === 'online') D.online = !D.online;
+  else if (a === 'adv') D.job = Math.min(3, D.job + 1);
+  else if (a === 'decline') D.job = -1;
+  else if (a === 'up') D.up[v] = true;
+  else if (a === 'seat-' || a === 'seat+') {
+    var d = DEPS.filter(function (x) { return x[0] === v; })[0];
+    O[v] = Math.max(Math.min(d[6], O[v]), Math.min(d[4] - d[5], O[v] + (a === 'seat+' ? 1 : -1)));
+  }
+  render();
+  if (a !== 'pax-' && a !== 'pax+' && a !== 'women' && a !== 'pay' && a !== 'rate' && a.indexOf('seat') !== 0 && a !== 'share' && a !== 'up') window.scrollTo(0, 0);
+});
+render();
+</script>
+</body>
+</html>
